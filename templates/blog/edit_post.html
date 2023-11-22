@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Post Edit{% endblock %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+{% block content %}
+<h2>Editar Post</h2>
+
+<div class="container">
+  <div class="container">
+    <div class="row mt-5 pt-3">
+      <div class="col-md-12">
+        <div class="card my-3 shadow">
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+            
+              <div class="form-group">
+                <label for="profe">Profesor/Ayudante:</label>
+                <input type="text" class="form-control" id="profe" name="profe" value="{{ post.profe }}" required>
+              </div>
+            
+              <div class="form-group">
+                <label for="imagen">Imagen:</label>
+                <input type="file" class="form-control-file" id="imagen" name="imagen">
+              </div>
+            
+              <label for="imagen">Imagen actual</label>
+              <div class="form-group">
+                
+                <img
+                class="img-thumbnail"
+                src="{{ post.imagen.url }}"
+                alt="img"
+              />
+              </div>
+
+              <div class="form-group">
+                <label for="contenido">Contenido:</label>
+                <textarea class="form-control" id="contenido" name="contenido" rows="4" required>{{ post.contenido }}</textarea>
+              </div>
+            
+              <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <select class="form-control" id="categoria" name="categoria" required>
+                  {% for choice in CATEGORY_CHOICES %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == post.categoria %}selected{% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            
+              <div class="form-group">
+                <label for="ayudante">Ayudante:</label>
+                <select class="form-control" id="ayudante" name="ayudante" required>
+                  {% for choice in AYUDANTE_CHOICES %}
+                    <option value="{{ choice.0 }}" {% if choice.0 == post.ayudante %}selected{% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

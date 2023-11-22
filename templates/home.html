@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  <div class="container">
+    <div class="row mt-5 pt-3">
+      <div class="col-md-12">
+        <h4 class="pt-1 text-center">Feed de profesores y ayudantes para alumnos de la UFT. Decida su futuro.  </h4>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row mt-5 pt-3">
+      <div class="col-md-4">
+        <div class="card my-3 shadow">
+          <div class="card-body">
+            <!-- <form method="POST">
+             {% csrf_token %} 
+              <input
+                class="btn btn-primary btn-block"
+                type="submit"
+                value="Post"
+              />
+            </form> -->
+            <button class="btn btn-block"> <a href="{% url 'create-post' %}">Crear Post</a></button>
+           
+          </div>
+        </div>
+      </div>
+
+      
+          <div class="col-md-8">
+            {% for post in posts %}
+            <div class="card shadow my-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img
+                      class="img-thumbnail img-restrict"
+                      src="{{ post.imagen.url }}"
+                      alt="img"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <!-- <small>{{ post.ayudante }}</small> -->
+                    <h6 class="font-weight-bold mb-1">{{ post.ayudante }}</h6>
+                    <small>{{ post.date_created }}</small>
+                    <small>{{ post.categoria }}</small>
+                    <hr />
+                    <a class="h3" href="{% url 'blog-post-detail' post.id %}"
+                      >{{ post.profe }}</a
+                    >
+                    <p class="text-justify my-3">{{ post.contenido|safe }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+           {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+<footer class="footer bg-dark text-light py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="mb-0">© 2023 </p>
+        <p class="mb-0">Todos los derechos reservados.</p>
+        <p class="mb-0">
+          <a href="{% url 'terms_of_use' %}" class="text-light">Política de Condiciones de Uso</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// const myPopup = new Popup({
+//   id: "my-popup",
+//     title: "My First Popup",
+//     content: `
+//         An example popup.
+//         Supports multiple lines.`,
+//     showImmediately: true
+// });
+document.addEventListener('DOMContentLoaded', function() {
+  const myPopup = new Popup({
+    id: "my-popup",
+    title: "Términos de uso y condiciones",
+    content: `
+        No se admite contenido violento o gore, sexual, de odio, acoso, bullying, contenido que infrinja derechos de autor, fraudulento o engañoso, spam, pedofilia o abuso infantil o de carácter sensible ni que incite a funas.
+        Al ingresar a esta página web, usted {blue}[acepta] los términos de uso y condiciones.
+        Click {a-https://underfinnis.azurewebsites.net/terms-of-use/}[aquí] para leer más.`,
+    showImmediately: true,
+    showOnce: true,
+});
+});
+</script>
+
+{% endblock content %}

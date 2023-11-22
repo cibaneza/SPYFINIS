@@ -1,0 +1,102 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+
+{% comment %} {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %} {% endcomment %}
+
+
+<div class="container">
+  <div class="container">
+    <div class="row mt-5 pt-3">
+      <div class="col-md-12">
+        <div class="card my-3 shadow">
+          <div class="card-body">
+            <form
+              method="POST"
+              action="{% url 'create-post' %}"
+              enctype="multipart/form-data"
+            >
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label for="profe">Profesor/Ayudante:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="profe"
+                  name="profe"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="imagen">Imagen:</label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  id="imagen"
+                  name="imagen"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                  {{ form.media }}
+                  {{ form.content }}
+
+              </div>
+
+              <div class="form-group">
+                <label for="contenido">Contenido:</label>
+                 <textarea
+                  class="form-control"
+                  id="contenido"
+                  name="contenido"
+                  rows="4"
+                  required
+                ></textarea> 
+               
+              </div>
+
+              <div class="form-group">
+                <label for="categoria">Carrera:</label>
+                <select
+                  class="form-control"
+                  id="categoria"
+                  name="categoria"
+                  required
+                >
+                  {% for choice in CATEGORY_CHOICES %}
+                  <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="ayudante">Cargo:</label>
+                <select
+                  class="form-control"
+                  id="ayudante"
+                  name="ayudante"
+                  required
+                >
+                  {% for choice in AYUDANTE_CHOICES %}
+                  <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Crear Post</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% endblock content %}
+    </div>
+  </div>
+</div>

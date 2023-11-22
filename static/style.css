@@ -1,0 +1,13 @@
+.cover{
+    /* background: url('/media/spacejpg.jpg');  */
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.img-restrict {
+    max-height: 200px; /* Ajusta este valor según tus necesidades */
+    max-width: 300px; /* Ajusta este valor según tus necesidades */
+    height: auto;
+    width: auto;
+}
